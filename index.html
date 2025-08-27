@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste AR com model-viewer</title>
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; }
+    model-viewer { width: 100%; height: 100%; }
+    /* Customizando o botão AR */
+    button[slot="ar-button"] {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    /* Exibir uma animação ou prompt enquanto AR não está pronto */
+    #ar-prompt {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.8);
+      padding: 10px 15px;
+      border-radius: 5px;
+      display: none;
+      font-size: 14px;
+    }
+    model-viewer[ar-status="scanning"] #ar-prompt {
+      display: block;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<model-viewer 
+  src="teste.glb" 
+  ios-src="model.usdz"
+  ar 
+  ar-modes="webxr scene-viewer quick-look" 
+  ar-scale="fixed"
+  xr-environment
+  camera-controls
+  alt="Modelo 3D para AR">
+
+  <!-- Botão AR customizado -->
+  <button slot="ar-button">Ver em AR</button>
+
+  <!-- Prompt para ajudar o usuário a escanear o piso -->
+  <div id="ar-prompt">
+    Mova o celular para detectar o plano (piso)
+  </div>
+
+</model-viewer>
+
+</body>
+</html>
